@@ -1,0 +1,59 @@
+<?php
+
+  require_once drupal_get_path('module', 'tripal_vis_expression').'/includes/feature_heatmap_form.inc';
+
+/*
+ * Implement hook_block_info()
+ * Define two blocks one for input features
+ * the other one for display heatmap
+ */
+function tripal_vis_expression_block_info(){
+  // Define two blocks: one for features input form
+  // the other one for heatmap display
+  $blocks = array();
+  $blocks['input_features'] = array(
+    'info' => t('tripal_vis_expression input features'),
+    'status' => TRUE,
+    'region' => 'content',
+    'cache' => DRUPAL_NO_CACHE
+  );
+
+  $blocks['heatmap_features'] = array(
+    'info' => t('tripal_vis_expression heatmap features'),
+    'status' => TRUE,
+    'region' => 'content',
+    'cache' => DRUPAL_NO_CACHE
+  );
+
+  return $blocks;
+}
+
+
+/*
+ * Implement hook_block_view()
+ */
+function tripal_vis_expression_block_view($delta = ''){
+  $block = array();
+  switch($delta){
+    case 'input_features':
+      $block['subject'] = t('Feature Expression');
+      $block['content'] = drupal_get_form('feature_heatmap_form');
+      break;
+    case 'heatmap_features':
+      $block['subject'] = t('Feature Expression Heatmap');
+      $block['content'] = '<div id="vis_expression"></div>';
+      break;
+  }  
+
+  drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
+  drupal_add_js(drupal_get_path('module', 'tripal_vis_expression').'/js/heatmap.js');
+  return $block;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+name = Tripal Vis Expression
+description = A module to display expression data for multiple genes with heatmap
+core = 7.x
+version = 7.x-0.1-dev
+project = tripal_analysis_expression
+package = Tripal Extensions
+
