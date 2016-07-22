@@ -3,7 +3,7 @@
 function feature_heatmap_form($form, &$form_state){
   $form['descriptions'] = array(
     '#type' => 'item',
-    '#markup' => t('<b>If the feature unique names is not empty, it will search by feature IDs.
+    '#markup' => t('<b>If the feature unique names is not empty, it will search by feature unique names.
                    otherwise, it will search by feature IDs.</b>')
   );
 
