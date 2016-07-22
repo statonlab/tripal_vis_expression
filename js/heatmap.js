@@ -1,17 +1,16 @@
 (function($){
-  Drupal.behaviors.heatmap = {
+  Drupal.behaviors.tripal_vis_expression = {
     attach: function(context, settings){
       $(document).ready(function(){
-        var data = [
-          {
-            z: [[1, 20, 30, 50, 1], [20, 1, 60, 80, 30], [30, 60, 1, -10, 20]],
-            x: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-            y: ['Morning', 'Afternoon', 'Evening'],
-            type: 'heatmap'
-          }
-        ];
-        
-        Plotly.newPlot('vis_expression', data);
+        /*
+        var x = settings.tripal_vis_expression.heatmap_x;
+        var y = settings.tripal_vis_expression.heatmap_y;
+        var z = settings.tripal_vis_expression.heatmap_z;
+        var type = 'heatmap';
+        var heatmap_data = [{x, y, z, type}];
+        */
+        var heatmap_data = eval(settings.tripal_vis_expression.heatmap_data); 
+        Plotly.newPlot('vis_expression', heatmap_data);
       })
     }
   }

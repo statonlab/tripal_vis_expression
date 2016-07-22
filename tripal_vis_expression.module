@@ -45,8 +45,16 @@ function tripal_vis_expression_block_view($delta = ''){
       break;
   }  
 
+  /*
+  drupal_add_js(array('tripal_vis_expression' => array('heatmap_x' => $_SESSION['heatmap_x'])), array('type' => 'setting'));
+  drupal_add_js(array('tripal_vis_expression' => array('heatmap_y' => $_SESSION['heatmap_y'])), array('type' => 'setting'));
+  drupal_add_js(array('tripal_vis_expression' => array('heatmap_z' => $_SESSION['heatmap_z'])), array('type' => 'setting'));
+  */
+  drupal_add_js(array('tripal_vis_expression' => array('heatmap_data' => $_SESSION['heatmap_data'])), array('type' => 'setting'));
+
   drupal_add_js('https://cdn.plot.ly/plotly-latest.min.js', 'external');
   drupal_add_js(drupal_get_path('module', 'tripal_vis_expression').'/js/heatmap.js');
+
   return $block;
 }
 
