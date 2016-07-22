@@ -76,11 +76,14 @@ function feature_heatmap_form_submit($form, &$form_state){
     $feature_ids = explode(',', $heatmap_feature_id);
     foreach($feature_ids as $feature_id){
       // trim white space at the beginning and the end
-      $feature_id = trim($feature_id);
+      $feature_id = (int)trim($feature_id); // coerce feature_id into integer. Otherwise it will generate an error. 
+                                            //I think this may be because the feature_id field in the chado.feature table only store int values.
       $expressions[$feature_id] = db_query($sql_feature_id, array(":feature_id" => $feature_id))->fetchAllAssoc('elementresult_id');
     }
   }
 
+
+  if(!empty($expressions)){
     // Get all biomaterial names from different organisms
     $biomaterials = array();
     foreach($expressions as $features){
@@ -119,12 +122,16 @@ function feature_heatmap_form_submit($form, &$form_state){
     // To build this variable, we first create a string, and then use javascripts' eval() function
     // to convert this string into a javascript variable.
     // The eval() function is called in the heatmap.js file. 
-    $_SESSION['heatmap_data'] = '[{'.'
-                                    x:'.json_encode($x).', 
-                                    y:'.json_encode($y).', 
-                                    z:'.json_encode($z).', 
-                                    type:"heatmap"}]';
-
+    if(!empty($x) and !empty($y) and !empty($x)){
+      $_SESSION['heatmap_data'] = '[{'.'
+                                      x:'.json_encode($x).', 
+                                      y:'.json_encode($y).', 
+                                      z:'.json_encode($z).', 
+                                      type:"heatmap"}]';
+    } else {
+      $_SESSION['heatmap_data'] = '';
+    }
+  }
 
   /*
   $_SESSION['heatmap_x'] = $x;

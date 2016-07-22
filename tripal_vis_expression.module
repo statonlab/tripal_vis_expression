@@ -40,8 +40,13 @@ function tripal_vis_expression_block_view($delta = ''){
       $block['content'] = drupal_get_form('feature_heatmap_form');
       break;
     case 'heatmap_features':
-      $block['subject'] = t('Feature Expression Heatmap');
-      $block['content'] = '<div id="vis_expression"></div>';
+      if(!empty($_SESSION['heatmap_data'])){
+        $block['subject'] = t('Feature Expression Heatmap');
+        $block['content'] = '<div id="vis_expression"></div>';
+      } else {
+        $block['subject'] = '';
+        $block['content'] = t('<b><span style="color:red">No expression data available for these features.</span></b>');
+      }
       break;
   }  
 
