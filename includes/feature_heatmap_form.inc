@@ -1,11 +1,11 @@
 <?php
 
 function feature_heatmap_form($form, &$form_state){
-  $form['descriptions'] = array(
+  /*$form['descriptions'] = array(
     '#type' => 'item',
     '#markup' => t('<b>If the feature unique names is not empty, it will search by feature unique names.
                    otherwise, it will search by feature IDs.</b>')
-  );
+  );*/
 
   $form['heatmap_feature_uniquename'] = array(
     '#type' => 'textarea',
@@ -14,21 +14,28 @@ function feature_heatmap_form($form, &$form_state){
     '#attributes' => array(
       'placeholder' => t('Nyssa_sylvatica_10132014_comp23154_c0_seq12_m.8255, Quercus_rubra_120313_comp172643_c0_seq1_m.37896, Liriodendron_tulipifera_10132014_comp16064_c0_seq1'),
     ),
+
   );
 
-  $form['heatmap_feature_id'] = array(
+  if(isset($_GET['heatmap_feature_uniquename']) && !empty($_GET['heatmap_feature_uniquename'])) {
+    $form['heatmap_feature_uniquename']['#value'] = e($_GET['heatmap_feature_uniquename']);
+  }
+
+  /*$form['heatmap_feature_id'] = array(
     '#type' => 'textarea',
     '#title' => t('Enter feature IDs'),
     '#description' => t('<b>Example feature IDs:</b> 618978, 669963, 384973, 518858,1889963,1869369,2599817,1890195,352534, 299910, 372333,2519176,1884325, 374334, 210144, 574110,1862036'),
     '#attributes' => array(
       'placeholder' => t('1678806, 1625926, 298564, 200410')
     ),
-  );
+  );*/
 
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Display Expression Heatmap'),
   );
+
+  $form['#method'] = 'get';
 
   return $form;
 }
@@ -138,4 +145,15 @@ function feature_heatmap_form_submit($form, &$form_state){
   $_SESSION['heatmap_y'] = $y;
   $_SESSION['heatmap_z'] = $z;
   */
-}  
+}
+
+/**
+ * Escape HTML special characters in a string.
+ *
+ * @param  $value
+ * @return string
+ */
+function e($value)
+{
+  return htmlspecialchars($value, ENT_QUOTES, 'UTF-8', false);
+}
