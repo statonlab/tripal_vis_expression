@@ -1,11 +1,11 @@
 <?php
 
 function feature_heatmap_form($form, &$form_state){
-  /*$form['descriptions'] = array(
+  $form['descriptions'] = array(
     '#type' => 'item',
     '#markup' => t('<b>If the feature unique names is not empty, it will search by feature unique names.
                    otherwise, it will search by feature IDs.</b>')
-  );*/
+  );
 
   $form['heatmap_feature_uniquename'] = array(
     '#type' => 'textarea',
@@ -21,14 +21,18 @@ function feature_heatmap_form($form, &$form_state){
     $form['heatmap_feature_uniquename']['#value'] = e($_GET['heatmap_feature_uniquename']);
   }
 
-  /*$form['heatmap_feature_id'] = array(
+  $form['heatmap_feature_id'] = array(
     '#type' => 'textarea',
     '#title' => t('Enter feature IDs'),
     '#description' => t('<b>Example feature IDs:</b> 618978, 669963, 384973, 518858,1889963,1869369,2599817,1890195,352534, 299910, 372333,2519176,1884325, 374334, 210144, 574110,1862036'),
     '#attributes' => array(
       'placeholder' => t('1678806, 1625926, 298564, 200410')
     ),
-  );*/
+  );
+
+  if(isset($_GET['heatmap_feature_id']) && !empty($_GET['heatmap_feature_id'])) {
+    $form['heatmap_feature_id']['#value'] = e($_GET['heatmap_feature_id']);
+  }
 
   $form['submit'] = array(
     '#type' => 'submit',
